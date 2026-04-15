@@ -1,0 +1,228 @@
+/// <reference path="types.ts" />
+
+// Dataset estático de miembros y actividades.
+// Se usa en listado.ts y estadisticas.ts. El prototipo no persiste datos
+// reales, por lo que estos valores están codificados a mano.
+
+const MIEMBROS: Miembro[] = [
+  {
+    id: 1,
+    nombre: "Ana",
+    apellido: "García",
+    correo: "ana.garcia@uchile.cl",
+    telegram: "@anagarcia",
+    tipo: "estudiante-pregrado",
+    datosEstudiante: { semestre: 6 },
+    actividades: [
+      {
+        nombre: "Danza contemporánea",
+        categoria: "artistica",
+        descripcion: "Grupo de danza del DCC que ensaya para muestras semestrales.",
+        horarios: [{ dia: "martes", horaInicio: "18:00", horaFin: "20:00" }],
+        archivos: ["danza-ensayo.jpg"],
+        enlace: "https://ejemplo.cl/danza-dcc",
+      },
+    ],
+  },
+  {
+    id: 2,
+    nombre: "Benjamín",
+    apellido: "Soto",
+    correo: "bsoto@dcc.uchile.cl",
+    telefono: "+56 9 8123 4567",
+    tipo: "academico",
+    datosAcademico: { curso: "Inteligencia Artificial" },
+    actividades: [
+      {
+        nombre: "Fútbol interno DCC",
+        categoria: "deportiva",
+        descripcion: "Partidos recreativos los miércoles en Beauchef.",
+        horarios: [{ dia: "miercoles", horaInicio: "19:00", horaFin: "21:00" }],
+        archivos: ["futbol.jpg"],
+        enlace: "https://ejemplo.cl/futbol-dcc",
+      },
+      {
+        nombre: "Club de lectura de papers",
+        categoria: "tecnologica",
+        horarios: [{ dia: "viernes", horaInicio: "13:00", horaFin: "14:00" }],
+        archivos: ["papers.jpg"],
+        enlace: "https://ejemplo.cl/papers",
+      },
+    ],
+  },
+  {
+    id: 3,
+    nombre: "Camila",
+    apellido: "Rojas",
+    correo: "crojas@uchile.cl",
+    telefono: "+56 9 7234 5678",
+    tipo: "funcionario",
+    datosFuncionario: { area: "Secretaría Docente" },
+    actividades: [
+      {
+        nombre: "Yoga al mediodía",
+        categoria: "recreativa",
+        descripcion: "Sesión corta entre horas laborales.",
+        horarios: [
+          { dia: "lunes", horaInicio: "13:00", horaFin: "13:45" },
+          { dia: "jueves", horaInicio: "13:00", horaFin: "13:45" },
+        ],
+        archivos: ["yoga.jpg"],
+        enlace: "https://ejemplo.cl/yoga",
+      },
+    ],
+  },
+  {
+    id: 4,
+    nombre: "Diego",
+    apellido: "Muñoz",
+    correo: "diego.munoz@ug.uchile.cl",
+    telegram: "@diemunoz",
+    tipo: "estudiante-postgrado",
+    datosEstudiante: { semestre: 2 },
+    actividades: [
+      {
+        nombre: "Coro universitario",
+        categoria: "artistica",
+        horarios: [{ dia: "lunes", horaInicio: "19:00", horaFin: "21:00" }],
+        archivos: ["coro.jpg"],
+        enlace: "https://ejemplo.cl/coro",
+      },
+      {
+        nombre: "Hackathon mensual",
+        categoria: "tecnologica",
+        descripcion: "Encuentros de 4 horas para prototipar.",
+        horarios: [{ dia: "sabado", horaInicio: "10:00", horaFin: "14:00" }],
+        archivos: ["hack.jpg"],
+        enlace: "https://ejemplo.cl/hack",
+      },
+    ],
+  },
+  {
+    id: 5,
+    nombre: "Elena",
+    apellido: "Parra",
+    correo: "eparra@uchile.cl",
+    telefono: "+56 9 6345 6789",
+    tipo: "funcionario",
+    datosFuncionario: { area: "Soporte TI" },
+    actividades: [
+      {
+        nombre: "Escalada en muro",
+        categoria: "deportiva",
+        horarios: [{ dia: "miercoles", horaInicio: "18:30", horaFin: "20:00" }],
+        archivos: ["escalada.jpg"],
+        enlace: "https://ejemplo.cl/escalada",
+      },
+    ],
+  },
+  {
+    id: 6,
+    nombre: "Felipe",
+    apellido: "Vidal",
+    correo: "fvidal@ug.uchile.cl",
+    telegram: "@felipevidal",
+    tipo: "estudiante-pregrado",
+    datosEstudiante: { semestre: 1 },
+    actividades: [
+      {
+        nombre: "Voluntariado barrial",
+        categoria: "social",
+        descripcion: "Apoyo escolar a niños de la comuna.",
+        horarios: [{ dia: "sabado", horaInicio: "15:00", horaFin: "18:00" }],
+        archivos: ["voluntariado.jpg"],
+        enlace: "https://ejemplo.cl/voluntariado",
+      },
+    ],
+  },
+  {
+    id: 7,
+    nombre: "Gabriela",
+    apellido: "Núñez",
+    correo: "gnunez@dcc.uchile.cl",
+    telefono: "+56 9 5456 7890",
+    tipo: "academico",
+    datosAcademico: { curso: "Bases de Datos" },
+    actividades: [
+      {
+        nombre: "Grupo de trekking",
+        categoria: "deportiva",
+        horarios: [{ dia: "domingo", horaInicio: "08:00", horaFin: "13:00" }],
+        archivos: ["trekking.jpg"],
+        enlace: "https://ejemplo.cl/trekking",
+      },
+      {
+        nombre: "Taller de fotografía",
+        categoria: "artistica",
+        horarios: [{ dia: "jueves", horaInicio: "18:00", horaFin: "20:00" }],
+        archivos: ["foto.jpg"],
+        enlace: "https://ejemplo.cl/foto",
+      },
+    ],
+  },
+  {
+    id: 8,
+    nombre: "Héctor",
+    apellido: "Fuentes",
+    correo: "hfuentes@ug.uchile.cl",
+    telegram: "@hfuentes",
+    tipo: "estudiante-pregrado",
+    datosEstudiante: { semestre: 4 },
+    actividades: [
+      {
+        nombre: "Club de ajedrez",
+        categoria: "recreativa",
+        horarios: [{ dia: "martes", horaInicio: "12:00", horaFin: "13:30" }],
+        archivos: ["ajedrez.jpg"],
+        enlace: "https://ejemplo.cl/ajedrez",
+      },
+    ],
+  },
+  {
+    id: 9,
+    nombre: "Isidora",
+    apellido: "Cárcamo",
+    correo: "icarcamo@ug.uchile.cl",
+    telegram: "@isicarcamo",
+    tipo: "estudiante-postgrado",
+    datosEstudiante: { semestre: 4 },
+    actividades: [
+      {
+        nombre: "Charlas divulgación",
+        categoria: "tecnologica",
+        descripcion: "Organiza charlas mensuales abiertas.",
+        horarios: [{ dia: "viernes", horaInicio: "16:00", horaFin: "17:30" }],
+        archivos: ["charlas.jpg"],
+        enlace: "https://ejemplo.cl/charlas",
+      },
+    ],
+  },
+  {
+    id: 10,
+    nombre: "Joaquín",
+    apellido: "Bravo",
+    correo: "joaquin.bravo@uchile.cl",
+    telefono: "+56 9 4567 8901",
+    tipo: "funcionario",
+    datosFuncionario: { area: "Comunicaciones" },
+    actividades: [
+      {
+        nombre: "Taller de cerámica",
+        categoria: "artistica",
+        horarios: [{ dia: "sabado", horaInicio: "11:00", horaFin: "13:00" }],
+        archivos: ["ceramica.jpg"],
+        enlace: "https://ejemplo.cl/ceramica",
+      },
+      {
+        nombre: "Running grupal",
+        categoria: "deportiva",
+        horarios: [
+          { dia: "martes", horaInicio: "07:00", horaFin: "08:00" },
+          { dia: "jueves", horaInicio: "07:00", horaFin: "08:00" },
+        ],
+        archivos: ["running.jpg"],
+        enlace: "https://ejemplo.cl/running",
+      },
+    ],
+  },
+];

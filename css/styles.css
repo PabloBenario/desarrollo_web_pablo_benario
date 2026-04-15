@@ -1,0 +1,165 @@
+/* ACTIVADCC - Estilos mínimos. Solo lo funcional. */
+
+body {
+  font-family: sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0 0 1rem;
+  background: #eee;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #000;
+  text-decoration: none;
+}
+
+nav a.activo {
+  font-weight: bold;
+}
+
+section {
+  margin-bottom: 1rem;
+}
+
+button,
+.boton {
+  background: #ddd;
+  border: 1px solid #999;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #000;
+  text-decoration: none;
+  display: inline-block;
+}
+
+button:disabled {
+  color: #888;
+  cursor: not-allowed;
+}
+
+fieldset {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+input,
+select,
+textarea {
+  font-size: 1rem;
+  padding: 0.3rem;
+  max-width: 400px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+textarea {
+  width: 100%;
+}
+
+.requerido {
+  color: red;
+}
+
+.opcional {
+  display: block;
+  color: #888;
+  font-size: 0.85rem;
+}
+
+small.error {
+  display: block;
+  color: red;
+  min-height: 1rem;
+}
+
+.grupo-horario {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.actividad-bloque {
+  border: 1px dashed #888;
+  padding: 0.75rem;
+  margin-top: 1rem;
+}
+
+table.listado {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.listado th,
+table.listado td {
+  border: 1px solid #ccc;
+  padding: 0.3rem;
+  text-align: left;
+}
+
+th.ordenable {
+  cursor: pointer;
+  background: #eee;
+}
+
+table.listado tbody tr:hover {
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
+.detalle-miembro {
+  border: 1px solid #999;
+  padding: 1rem;
+}
+
+.paginacion {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.graficos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.mensaje-estado {
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.mensaje-estado.exito {
+  background: #dff0d8;
+  color: #2d6a2f;
+  border: 1px solid #2d6a2f;
+}
+
+.mensaje-estado.aviso {
+  background: #fcf2cf;
+  color: #8a6d3b;
+  border: 1px solid #8a6d3b;
+}

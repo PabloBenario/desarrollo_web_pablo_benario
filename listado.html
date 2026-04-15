@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACTIVADCC · Listado</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/types.js" defer></script>
+  <script src="js/common.js" defer></script>
+  <script src="js/datos.js" defer></script>
+  <script src="js/listado.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>ACTIVADCC</h1>
+    <p>Listado de miembros registrados</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Portada</a></li>
+      <li><a href="registro.html">Registro</a></li>
+      <li><a href="listado.html">Listado</a></li>
+      <li><a href="estadisticas.html">Estadísticas</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Miembros</h2>
+      <p>
+        Haz click en un encabezado de columna para ordenar. Selecciona un tipo
+        para filtrar. Haz click en una fila para ver el detalle del miembro y
+        sus actividades.
+      </p>
+
+      <form class="filtros">
+        <label for="filtro-tipo">Filtrar por tipo
+          <select id="filtro-tipo">
+            <option value="">Todos</option>
+            <option value="estudiante-pregrado">Estudiante pregrado</option>
+            <option value="estudiante-postgrado">Estudiante postgrado</option>
+            <option value="funcionario">Funcionario/a</option>
+            <option value="academico">Académico/a</option>
+          </select>
+        </label>
+      </form>
+
+      <table class="listado">
+        <caption>Miembros registrados en el sistema</caption>
+        <thead>
+          <tr>
+            <th class="ordenable" data-col="nombre" scope="col">
+              Nombre <span class="icono-orden">⇅</span>
+            </th>
+            <th class="ordenable" data-col="tipo" scope="col">
+              Tipo <span class="icono-orden">⇅</span>
+            </th>
+            <th class="ordenable" data-col="correo" scope="col">
+              Correo <span class="icono-orden">⇅</span>
+            </th>
+            <th class="ordenable" data-col="contacto" scope="col">
+              Contacto <span class="icono-orden">⇅</span>
+            </th>
+            <th class="ordenable" data-col="actividades" scope="col">
+              N° actividades <span class="icono-orden">⇅</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="tbody-miembros"></tbody>
+      </table>
+
+      <nav class="paginacion">
+        <button type="button" id="pag-prev" class="boton secundario">← Anterior</button>
+        <span id="pag-info"></span>
+        <button type="button" id="pag-next" class="boton secundario">Siguiente →</button>
+      </nav>
+    </section>
+
+    <section id="detalle-miembro" class="detalle-miembro" hidden></section>
+  </main>
+
+  <footer>
+    Tarea 1 · Desarrollo de Aplicaciones Web 2026-1
+  </footer>
+</body>
+</html>

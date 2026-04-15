@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACTIVADCC · Estadísticas</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+  <script src="js/types.js" defer></script>
+  <script src="js/common.js" defer></script>
+  <script src="js/datos.js" defer></script>
+  <script src="js/estadisticas.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>ACTIVADCC</h1>
+    <p>Indicadores y métricas de la comunidad</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Portada</a></li>
+      <li><a href="registro.html">Registro</a></li>
+      <li><a href="listado.html">Listado</a></li>
+      <li><a href="estadisticas.html">Estadísticas</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Resumen</h2>
+      <p>
+        Los gráficos y números que se presentan a continuación se generan
+        a partir del dataset estático usado para el prototipo. Son
+        ilustrativos y coinciden con el listado de miembros.
+      </p>
+      <ul id="resumen-indicadores"></ul>
+    </section>
+
+    <section>
+      <h2>Gráficos</h2>
+      <div class="graficos-grid">
+        <article>
+          <h3>Distribución de miembros por tipo</h3>
+          <figure class="grafico-contenedor">
+            <canvas id="grafico-tipos"></canvas>
+          </figure>
+        </article>
+
+        <article>
+          <h3>Tendencia de horarios por día</h3>
+          <figure class="grafico-contenedor">
+            <canvas id="grafico-dias"></canvas>
+          </figure>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Tarea 1 · Desarrollo de Aplicaciones Web 2026-1
+  </footer>
+</body>
+</html>

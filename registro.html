@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACTIVADCC · Registro</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/types.js" defer></script>
+  <script src="js/common.js" defer></script>
+  <script src="js/registro.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>ACTIVADCC</h1>
+    <p>Registro de miembro y actividades</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Portada</a></li>
+      <li><a href="registro.html">Registro</a></li>
+      <li><a href="listado.html">Listado</a></li>
+      <li><a href="estadisticas.html">Estadísticas</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Registrar miembro</h2>
+      <p>
+        Los campos marcados con <span class="requerido"
+       >*</span> son obligatorios.
+      </p>
+
+      <p id="mensaje-resultado"></p>
+
+      <form id="form-registro" novalidate>
+        <fieldset>
+          <legend>Tipo de miembro</legend>
+
+          <label for="tipo">Tipo <span class="requerido">*</span>
+            <select id="tipo" name="tipo">
+              <option value="">-- Selecciona --</option>
+              <option value="estudiante-pregrado">Estudiante de pregrado</option>
+              <option value="estudiante-postgrado">Estudiante de postgrado</option>
+              <option value="funcionario">Funcionario/a</option>
+              <option value="academico">Académico/a</option>
+            </select>
+            <small class="error" id="err-tipo"></small>
+          </label>
+        </fieldset>
+
+        <fieldset id="datos-estudiante" hidden>
+          <legend>Datos del estudiante</legend>
+
+          <label for="semestre">Semestre actual <span class="requerido">*</span>
+            <input type="number" id="semestre" name="semestre" min="1" max="14" step="1">
+            <small class="error" id="err-semestre"></small>
+          </label>
+        </fieldset>
+
+        <fieldset id="datos-funcionario" hidden>
+          <legend>Datos de funcionario/a</legend>
+
+          <label for="area">Área <span class="requerido">*</span>
+            <input type="text" id="area" name="area">
+            <small class="error" id="err-area"></small>
+          </label>
+        </fieldset>
+
+        <fieldset id="datos-academico" hidden>
+          <legend>Datos de académico/a</legend>
+
+          <label for="curso">Curso que imparte <span class="requerido">*</span>
+            <input type="text" id="curso" name="curso">
+            <small class="error" id="err-curso"></small>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Datos de contacto</legend>
+
+          <label for="nombre">Nombre <span class="requerido">*</span>
+            <input type="text" id="nombre" name="nombre" autocomplete="given-name">
+            <small class="error" id="err-nombre"></small>
+          </label>
+
+          <label for="apellido">Apellido <span class="requerido">*</span>
+            <input type="text" id="apellido" name="apellido" autocomplete="family-name">
+            <small class="error" id="err-apellido"></small>
+          </label>
+
+          <label for="correo">Correo electrónico <span class="requerido">*</span>
+            <input type="email" id="correo" name="correo" autocomplete="email">
+            <small class="error" id="err-correo"></small>
+          </label>
+
+          <label id="label-telegram" for="telegram">Usuario de Telegram <span class="requerido">*</span>
+            <input type="text" id="telegram" name="telegram" placeholder="@usuario">
+            <small class="error" id="err-telegram"></small>
+          </label>
+
+          <label id="label-telefono" for="telefono" hidden>Teléfono <span class="requerido">*</span>
+            <input type="tel" id="telefono" name="telefono" placeholder="+56 9 ...">
+            <small class="error" id="err-telefono"></small>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Actividades que realizas (entre 1 y 5)</legend>
+          <p>
+            Puedes informar hasta 5 actividades. Cada una puede tener varios
+            horarios en distintos días de la semana. Los horarios no pueden
+            traslaparse entre sí.
+          </p>
+          <section id="lista-actividades"></section>
+          <p>
+            <button type="button" class="boton" id="btn-agregar-actividad">+ Agregar otra actividad</button>
+          </p>
+          <small class="error" id="err-actividades"></small>
+          <small class="error" id="err-traslape"></small>
+        </fieldset>
+
+        <p>
+          <button type="submit" class="boton">Registrar</button>
+          <a href="index.html" class="boton secundario">Cancelar</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    Tarea 1 · Desarrollo de Aplicaciones Web 2026-1
+  </footer>
+</body>
+</html>
