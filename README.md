@@ -75,11 +75,7 @@ Esto incluye:
 - horarios completos, rangos válidos y sin traslapes;
 - archivos de tipo imagen o video.
 
-### Simplicidad del código
-
-El proyecto evita estructuras más grandes como blueprints, app factories o
-migraciones automáticas. Para esta tarea se priorizó que el flujo fuera fácil de
-leer:
+### Estructura del código
 
 - `app.py`: rutas, consultas principales, validación del formulario y guardado.
 - `models.py`: modelos SQLAlchemy.
@@ -119,7 +115,7 @@ t2/
 
 ### 1. Crear entorno virtual e instalar dependencias
 
-Desde la carpeta `t2/`:
+Desde la carpeta `.`:
 
 ```bash
 python3 -m venv .venv
@@ -128,9 +124,6 @@ pip install -r requirements.txt
 ```
 
 ### 2. Crear la base de datos
-
-Si MySQL fue instalado con Homebrew, normalmente se puede entrar con el usuario
-`root` sin contraseña:
 
 ```bash
 mysql -u root
@@ -196,5 +189,3 @@ Luego abrir:
 ```text
 http://127.0.0.1:5000
 ```
-
-
