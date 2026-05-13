@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}ACTIVADCC · Listado{% endblock %}
+{% block subtitle %}Listado de miembros registrados{% endblock %}
+
+{% block content %}
+<section>
+  <h2>Miembros</h2>
+  <p>
+    Filtra por tipo o haz click en un encabezado para ordenar. Haz click en
+    una fila para ver el detalle del miembro y sus actividades.
+  </p>
+
+  <form class="filtros" method="get">
+    <label for="tipo">Filtrar por tipo
+      <select id="tipo" name="tipo">
+        <option value="">Todos</option>
+        {% for valor, etiqueta in tipos_miembro.items() %}
+          <option value="{{ valor }}" {% if filtro_tipo == valor %}selected{% endif %}>{{ etiqueta }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <input type="hidden" name="orden" value="{{ orden }}">
+    <input type="hidden" name="dir" value="{{ direccion }}">
+    <button type="submit" class="boton">Filtrar</button>
+  </form>
+
+  <table class="listado">
+    <caption>Miembros registrados en el sistema</caption>
+    <thead>
+      <tr>
+        <th scope="col">
+          <a href="{{ url_for('miembros', tipo=filtro_tipo, orden='nombre', dir='desc' if orden == 'nombre' and direccion == 'asc' else 'asc') }}">Nombre</a>
+        </th>
+        <th scope="col">
+          <a href="{{ url_for('miembros', tipo=filtro_tipo, orden='tipo', dir='desc' if orden == 'tipo' and direccion == 'asc' else 'asc') }}">Tipo</a>
+        </th>
+        <th scope="col">
+          <a href="{{ url_for('miembros', tipo=filtro_tipo, orden='correo', dir='desc' if orden == 'correo' and direccion == 'asc' else 'asc') }}">Correo</a>
+        </th>
+        <th scope="col">
+          <a href="{{ url_for('miembros', tipo=filtro_tipo, orden='contacto', dir='desc' if orden == 'contacto' and direccion == 'asc' else 'asc') }}">Contacto</a>
+        </th>
+        <th scope="col">
+          <a href="{{ url_for('miembros', tipo=filtro_tipo, orden='actividades', dir='desc' if orden == 'actividades' and direccion == 'asc' else 'asc') }}">N° actividades</a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if miembros %}
+        {% for miembro in miembros %}
+          <tr tabindex="0" data-href="{{ url_for('detalle_miembro', miembro_id=miembro.id) }}">
+            <td>{{ miembro.nombre_completo }}</td>
+            <td>{{ tipos_miembro.get(miembro.tipo, miembro.tipo) }}</td>
+            <td>{{ miembro.email }}</td>
+            <td>{{ miembro.contacto }}</td>
+            <td>{{ miembro.actividades|length }}</td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="5" class="texto-centro">No hay miembros registrados.</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+
+  <nav class="paginacion">
+    {% if pagina > 1 %}
+      <a class="boton secundario" href="{{ url_for('miembros', page=pagina - 1, tipo=filtro_tipo, orden=orden, dir=direccion) }}">← Anterior</a>
+    {% else %}
+      <button type="button" class="boton secundario" disabled>← Anterior</button>
+    {% endif %}
+
+    <span>Página {{ pagina }} de {{ total_paginas }} · {{ total }} miembros</span>
+
+    {% if pagina < total_paginas %}
+      <a class="boton secundario" href="{{ url_for('miembros', page=pagina + 1, tipo=filtro_tipo, orden=orden, dir=direccion) }}">Siguiente →</a>
+    {% else %}
+      <button type="button" class="boton secundario" disabled>Siguiente →</button>
+    {% endif %}
+  </nav>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/listado.js') }}"></script>
+{% endblock %}

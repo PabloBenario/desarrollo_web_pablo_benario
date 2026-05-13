@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}ACTIVADCC{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header>
+    <h1>ACTIVADCC</h1>
+    <p>{% block subtitle %}Sistema de gestión de actividades{% endblock %}</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a class="{% if active == 'index' %}activo{% endif %}" href="{{ url_for('index') }}">Portada</a></li>
+      <li><a class="{% if active == 'registro' %}activo{% endif %}" href="{{ url_for('registro') }}">Registro</a></li>
+      <li><a class="{% if active == 'miembros' %}activo{% endif %}" href="{{ url_for('miembros') }}">Listado</a></li>
+      <li><a class="{% if active == 'estadisticas' %}activo{% endif %}" href="{{ url_for('estadisticas') }}">Estadísticas</a></li>
+    </ul>
+  </nav>
+
+  {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% if mensajes %}
+      <section>
+        {% for categoria, mensaje in mensajes %}
+          <p class="mensaje-estado {{ categoria }}">{{ mensaje }}</p>
+        {% endfor %}
+      </section>
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    Tarea 2 · Desarrollo de Aplicaciones Web 2026-1
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

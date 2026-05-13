@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}ACTIVADCC · Registro{% endblock %}
+{% block subtitle %}Registro de miembro y actividades{% endblock %}
+
+{% block content %}
+{% set es_estudiante = datos.tipo in ["estudiante-pregrado", "estudiante-postgrado"] %}
+<section>
+  <h2>Registrar miembro</h2>
+  <p>Los campos marcados con <span class="requerido">*</span> son obligatorios.</p>
+
+  {% if errores.get("general") %}
+    <p class="mensaje-estado aviso">{{ errores.get("general") }}</p>
+  {% endif %}
+
+  <p id="mensaje-resultado"></p>
+
+  <form id="form-registro" method="post" enctype="multipart/form-data" novalidate>
+    <fieldset>
+      <legend>Tipo de miembro</legend>
+      <label for="tipo">Tipo <span class="requerido">*</span>
+        <select id="tipo" name="tipo">
+          <option value="">-- Selecciona --</option>
+          {% for valor, etiqueta in tipos_miembro.items() %}
+            <option value="{{ valor }}" {% if datos.tipo == valor %}selected{% endif %}>{{ etiqueta }}</option>
+          {% endfor %}
+        </select>
+        <small class="error" id="err-tipo">{{ errores.get("tipo", "") }}</small>
+      </label>
+    </fieldset>
+
+    <fieldset id="datos-estudiante" {% if not es_estudiante %}hidden{% endif %}>
+      <legend>Datos del estudiante</legend>
+      <label for="semestre">Semestre actual <span class="requerido">*</span>
+        <input type="number" id="semestre" name="semestre" min="1" max="14" step="1" value="{{ datos.semestre }}">
+        <small class="error" id="err-semestre">{{ errores.get("semestre", "") }}</small>
+      </label>
+    </fieldset>
+
+    <fieldset id="datos-funcionario" {% if datos.tipo != "funcionario" %}hidden{% endif %}>
+      <legend>Datos de funcionario/a</legend>
+      <label for="area">Área <span class="requerido">*</span>
+        <input type="text" id="area" name="area" value="{{ datos.area }}">
+        <small class="error" id="err-area">{{ errores.get("area", "") }}</small>
+      </label>
+    </fieldset>
+
+    <fieldset id="datos-academico" {% if datos.tipo != "academico" %}hidden{% endif %}>
+      <legend>Datos de académico/a</legend>
+      <label for="curso">Curso que imparte <span class="requerido">*</span>
+        <input type="text" id="curso" name="curso" value="{{ datos.curso }}">
+        <small class="error" id="err-curso">{{ errores.get("curso", "") }}</small>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Datos de contacto</legend>
+      <label for="nombre">Nombre <span class="requerido">*</span>
+        <input type="text" id="nombre" name="nombre" autocomplete="given-name" value="{{ datos.nombre }}">
+        <small class="error" id="err-nombre">{{ errores.get("nombre", "") }}</small>
+      </label>
+
+      <label for="apellido">Apellido <span class="requerido">*</span>
+        <input type="text" id="apellido" name="apellido" autocomplete="family-name" value="{{ datos.apellido }}">
+        <small class="error" id="err-apellido">{{ errores.get("apellido", "") }}</small>
+      </label>
+
+      <label for="correo">Correo electrónico <span class="requerido">*</span>
+        <input type="email" id="correo" name="correo" autocomplete="email" value="{{ datos.correo }}">
+        <small class="error" id="err-correo">{{ errores.get("correo", "") }}</small>
+      </label>
+
+      <label id="label-telegram" for="telegram" {% if datos.tipo and not es_estudiante %}hidden{% endif %}>Usuario de Telegram <span class="requerido">*</span>
+        <input type="text" id="telegram" name="telegram" placeholder="@usuario" value="{{ datos.telegram }}">
+        <small class="error" id="err-telegram">{{ errores.get("telegram", "") }}</small>
+      </label>
+
+      <label id="label-telefono" for="telefono" {% if not datos.tipo or es_estudiante %}hidden{% endif %}>Teléfono <span class="requerido">*</span>
+        <input type="tel" id="telefono" name="telefono" placeholder="+56 9 ..." value="{{ datos.telefono }}">
+        <small class="error" id="err-telefono">{{ errores.get("telefono", "") }}</small>
+      </label>
+
+      <label for="comuna_id">Comuna <span class="requerido">*</span>
+        <select id="comuna_id" name="comuna_id">
+          <option value="">-- Selecciona --</option>
+          {% for region in regiones %}
+            <optgroup label="{{ region.nombre }}">
+              {% for comuna in region.comunas %}
+                <option value="{{ comuna.id }}" {% if datos.comuna_id|string == comuna.id|string %}selected{% endif %}>{{ comuna.nombre }}</option>
+              {% endfor %}
+            </optgroup>
+          {% endfor %}
+        </select>
+        <small class="error" id="err-comuna_id">{{ errores.get("comuna_id", "") }}</small>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Actividades que realizas (entre 1 y 5)</legend>
+      <p>
+        Puedes informar hasta 5 actividades. Cada una puede tener varios
+        horarios. Los horarios no pueden traslaparse entre sí.
+      </p>
+
+      <div id="lista-actividades">
+        {% for actividad in datos.actividades %}
+          {% set prefijo = "act_" ~ actividad.idx %}
+          <article class="actividad-bloque" data-idx="{{ actividad.idx }}">
+            <input type="hidden" name="actividad_indices" value="{{ actividad.idx }}">
+            <header>
+              <h3>Actividad #{{ loop.index }}</h3>
+              <button type="button" class="boton peligro btn-eliminar-actividad">Eliminar</button>
+            </header>
+
+            <label>Nombre <span class="requerido">*</span>
+              <input type="text" class="act-nombre" name="act_{{ actividad.idx }}_nombre" maxlength="80" value="{{ actividad.nombre }}">
+              <small class="error act-err-nombre">{{ errores.get(prefijo ~ "_nombre", "") }}</small>
+            </label>
+
+            <label>Categoría <span class="requerido">*</span>
+              <select class="act-categoria" name="act_{{ actividad.idx }}_categoria">
+                <option value="">-- Selecciona --</option>
+                {% for valor, etiqueta in categorias_actividad.items() %}
+                  <option value="{{ valor }}" {% if actividad.categoria == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                {% endfor %}
+              </select>
+              <small class="error act-err-categoria">{{ errores.get(prefijo ~ "_categoria", "") }}</small>
+            </label>
+
+            <label>Descripción <span class="opcional">(opcional, máx. 300)</span>
+              <textarea class="act-descripcion" name="act_{{ actividad.idx }}_descripcion" maxlength="300">{{ actividad.descripcion }}</textarea>
+              <small class="error act-err-descripcion">{{ errores.get(prefijo ~ "_descripcion", "") }}</small>
+            </label>
+
+            <fieldset>
+              <legend>Horarios <span class="requerido">*</span></legend>
+              <div class="lista-horarios">
+                {% for horario in actividad.horarios %}
+                  <div class="grupo-horario">
+                    <label>Día
+                      <select class="h-dia" name="act_{{ actividad.idx }}_dia">
+                        <option value="">--</option>
+                        {% for valor, etiqueta in dias_semana.items() %}
+                          <option value="{{ valor }}" {% if horario.dia == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                        {% endfor %}
+                      </select>
+                    </label>
+                    <label>Inicio
+                      <input type="time" class="h-inicio" name="act_{{ actividad.idx }}_hora_inicio" value="{{ horario.hora_inicio }}">
+                    </label>
+                    <label>Fin
+                      <input type="time" class="h-fin" name="act_{{ actividad.idx }}_hora_fin" value="{{ horario.hora_fin }}">
+                    </label>
+                    <button type="button" class="boton secundario btn-eliminar-horario">-</button>
+                  </div>
+                {% endfor %}
+              </div>
+              <button type="button" class="boton secundario btn-agregar-horario">+ Agregar horario</button>
+              <small class="error act-err-horarios">{{ errores.get(prefijo ~ "_horarios", "") }}</small>
+            </fieldset>
+
+            <label>Archivos (imagen o video) <span class="requerido">*</span>
+              <input type="file" class="act-archivos" name="act_{{ actividad.idx }}_archivos" multiple accept="image/*,video/*">
+              <small class="error act-err-archivos">{{ errores.get(prefijo ~ "_archivos", "") }}</small>
+            </label>
+
+            <label>Enlace a contenido propio <span class="requerido">*</span>
+              <input type="url" class="act-enlace" name="act_{{ actividad.idx }}_enlace" placeholder="https://..." value="{{ actividad.enlace }}">
+              <small class="error act-err-enlace">{{ errores.get(prefijo ~ "_enlace", "") }}</small>
+            </label>
+          </article>
+        {% endfor %}
+      </div>
+
+      <p>
+        <button type="button" class="boton" id="btn-agregar-actividad">+ Agregar otra actividad</button>
+      </p>
+      <small class="error" id="err-actividades">{{ errores.get("actividades", "") }}</small>
+      <small class="error" id="err-traslape">{{ errores.get("traslape", "") }}</small>
+    </fieldset>
+
+    <p>
+      <button type="submit" class="boton">Registrar</button>
+      <a href="{{ url_for('index') }}" class="boton secundario">Cancelar</a>
+    </p>
+  </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/registro.js') }}"></script>
+{% endblock %}

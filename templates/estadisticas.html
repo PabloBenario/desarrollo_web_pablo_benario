@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}ACTIVADCC · Estadísticas{% endblock %}
+{% block subtitle %}Indicadores y métricas de la comunidad{% endblock %}
+
+{% block content %}
+<section>
+  <h2>Resumen</h2>
+  <ul id="resumen-indicadores">
+    <li><strong>{{ total_miembros }}</strong> miembros registrados</li>
+    <li><strong>{{ total_actividades }}</strong> actividades reportadas</li>
+    <li><strong>{{ promedio }}</strong> actividades promedio por miembro</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Gráficos</h2>
+  <div class="graficos-grid">
+    <article>
+      <h3>Distribución de miembros por tipo</h3>
+      <figure class="grafico-contenedor">
+        <canvas id="grafico-tipos"></canvas>
+      </figure>
+    </article>
+
+    <article>
+      <h3>Tendencia de horarios por día</h3>
+      <figure class="grafico-contenedor">
+        <canvas id="grafico-dias"></canvas>
+      </figure>
+    </article>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  window.DATOS_ESTADISTICAS = {
+    tipos: {{ por_tipo|tojson }},
+    dias: {{ por_dia|tojson }},
+    etiquetasTipos: {{ tipos_miembro|tojson }},
+    etiquetasDias: {{ dias_semana|tojson }}
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/estadisticas.js') }}"></script>
+{% endblock %}
