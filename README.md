@@ -197,26 +197,4 @@ Luego abrir:
 http://127.0.0.1:5000
 ```
 
-## Configuración de conexión
 
-Por defecto la aplicación usa esta conexión:
-
-```text
-mysql+pymysql://cc5002:programacionweb@localhost:3306/tarea2?charset=utf8mb4
-```
-
-Si se quiere usar otra configuración, se puede definir la variable de entorno
-`DATABASE_URL`:
-
-```bash
-DATABASE_URL="mysql+pymysql://usuario:clave@localhost:3306/tarea2?charset=utf8mb4" flask --app app run --debug
-```
-
-## Notas finales
-
-- Los HTML no se generan como archivos estáticos: Flask los renderiza
-  dinámicamente desde `templates/`.
-- Los archivos subidos quedan en `static/uploads/`.
-- El servidor de desarrollo de Flask es solo para pruebas locales.
-- Para reiniciar la base de datos, basta con volver a ejecutar
-  `tarea2-row-data.sql` y luego `region-comuna.sql`.
