@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}ACTIVADCC · Portada{% endblock %}
+{% block subtitle %}Sistema de gestión de actividades · Departamento de Computación · U. de Chile{% endblock %}
+
+{% block content %}
+<section>
+  <h2>Bienvenida</h2>
+  <p>
+    Este sistema permite al Área de Calidad de Vida del DCC conocer las
+    actividades artísticas, deportivas, tecnológicas, sociales y recreativas
+    que realizan estudiantes, funcionarios y académicos.
+  </p>
+  <nav class="acciones-portada">
+    <a class="boton" href="{{ url_for('registro') }}">Registrar miembro y actividades</a>
+    <a class="boton secundario" href="{{ url_for('miembros') }}">Ver listado de miembros</a>
+    <a class="boton secundario" href="{{ url_for('estadisticas') }}">Estadísticas</a>
+  </nav>
+</section>
+
+<section>
+  <h2>Indicadores</h2>
+  <ul>
+    <li><strong>{{ total_miembros }}</strong> miembros registrados</li>
+    <li><strong>{{ total_actividades }}</strong> actividades reportadas</li>
+    <li><strong>{{ promedio }}</strong> actividades promedio por miembro</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Últimos 5 miembros agregados</h2>
+  {% if ultimos %}
+    <table class="listado">
+      <caption>Miembros agregados recientemente</caption>
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Contacto</th>
+          <th scope="col">N° actividades</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for miembro in ultimos %}
+          <tr>
+            <td><a href="{{ url_for('detalle_miembro', miembro_id=miembro.id) }}">{{ miembro.nombre_completo }}</a></td>
+            <td>{{ tipos_miembro.get(miembro.tipo, miembro.tipo) }}</td>
+            <td>{{ miembro.email }}</td>
+            <td>{{ miembro.contacto }}</td>
+            <td>{{ miembro.actividades|length }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay miembros registrados todavía.</p>
+  {% endif %}
+</section>
+{% endblock %}

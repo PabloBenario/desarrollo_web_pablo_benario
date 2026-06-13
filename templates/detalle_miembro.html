@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}ACTIVADCC · Detalle{% endblock %}
+{% block subtitle %}Detalle de miembro y actividades{% endblock %}
+
+{% block content %}
+<section class="detalle-miembro">
+  <h2>{{ miembro.nombre_completo }}</h2>
+  <p><strong>Tipo:</strong> {{ tipos_miembro.get(miembro.tipo, miembro.tipo) }}</p>
+  <p><strong>Correo:</strong> {{ miembro.email }}</p>
+  <p><strong>Contacto:</strong> {{ miembro.contacto }}</p>
+  <p><strong>Comuna:</strong> {{ miembro.comuna.nombre }}, {{ miembro.comuna.region.nombre }}</p>
+  <p><strong>Fecha de registro:</strong> {{ miembro.fecha_registro.strftime("%d-%m-%Y %H:%M") }}</p>
+
+  {% if miembro.semestre %}
+    <p><strong>Semestre:</strong> {{ miembro.semestre }}</p>
+  {% elif miembro.area %}
+    <p><strong>Área:</strong> {{ miembro.area }}</p>
+  {% elif miembro.curso %}
+    <p><strong>Curso:</strong> {{ miembro.curso }}</p>
+  {% endif %}
+</section>
+
+<section>
+  <h3>Actividades ({{ miembro.actividades|length }})</h3>
+  {% for actividad in miembro.actividades %}
+    <article class="detalle-actividad">
+      <h4>{{ actividad.nombre }} <small>({{ categorias_actividad.get(actividad.tipo, actividad.tipo) }})</small></h4>
+      {% if actividad.descripcion %}
+        <p>{{ actividad.descripcion }}</p>
+      {% endif %}
+      <p><strong>Horarios:</strong></p>
+      <ul>
+        {% for horario in actividad.horarios %}
+          <li>{{ dias_semana.get(horario.dia, horario.dia) }} de {{ horario.hora_inicio }} a {{ horario.hora_fin }}</li>
+        {% endfor %}
+      </ul>
+      <p><strong>Archivos:</strong></p>
+      <ul>
+        {% for foto in actividad.fotos %}
+          <li><a href="{{ url_for('static', filename=foto.ruta_archivo) }}" target="_blank" rel="noopener">{{ foto.nombre_archivo }}</a></li>
+        {% endfor %}
+      </ul>
+      <p><strong>Enlace:</strong> <a href="{{ actividad.enlace }}" target="_blank" rel="noopener">{{ actividad.enlace }}</a></p>
+
+      <div class="comentarios-actividad" data-actividad-id="{{ actividad.id }}">
+        <p><strong>Comentarios</strong></p>
+        <ul class="lista-comentarios"></ul>
+        <p class="comentario-mensaje"></p>
+        <form class="form-comentario">
+          <label>Nombre del comentarista <span class="requerido">*</span>
+            <input type="text" class="com-nombre" name="nombre" minlength="3" maxlength="80">
+            <small class="error com-err-nombre"></small>
+          </label>
+          <label>Comentario <span class="requerido">*</span>
+            <textarea class="com-texto" name="texto" rows="4" cols="50"></textarea>
+            <small class="error com-err-texto"></small>
+          </label>
+          <button type="submit" class="boton">Agregar comentario</button>
+        </form>
+      </div>
+    </article>
+  {% else %}
+    <p>Este miembro no tiene actividades registradas.</p>
+  {% endfor %}
+  <p><a class="boton secundario" href="{{ url_for('miembros') }}">Volver al listado</a></p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
+<script src="{{ url_for('static', filename='js/comentarios.js') }}"></script>
+{% endblock %}
