@@ -1,0 +1,32 @@
+# --- Build (Maven) ---
+target/
+*.jar.original
+
+# --- macOS ---
+.DS_Store
+
+# --- Logs ---
+*.log
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# --- Eclipse ---
+.classpath
+.project
+.settings/
+bin/
+
+# --- VS Code ---
+.vscode/
+
+# --- NetBeans ---
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/

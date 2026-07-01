@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACTIVADCC · Buscador de actividades</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+  <header>
+    <h1>ACTIVADCC</h1>
+    <p>Buscador de actividades · Departamento de Computación · U. de Chile</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a class="activo" href="/">Buscador</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Buscar actividades</h2>
+      <form id="form-busqueda" autocomplete="off" onsubmit="return false;">
+        <label for="q">Nombre, descripción o comuna</label>
+        <input type="text" id="q" name="q"
+               placeholder="Escribe al menos 3 caracteres…"
+               aria-describedby="ayuda">
+        <small id="ayuda" class="opcional">
+          La búsqueda comienza automáticamente al escribir 3 caracteres.
+        </small>
+      </form>
+    </section>
+
+    <section>
+      <p id="estado" role="status" aria-live="polite"></p>
+      <div id="resultados"></div>
+    </section>
+  </main>
+
+  <footer>
+    Tarea 4 · Desarrollo de Aplicaciones Web 2026-1
+  </footer>
+
+  <script th:src="@{/js/buscador.js}"></script>
+</body>
+</html>
